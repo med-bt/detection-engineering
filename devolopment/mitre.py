@@ -8,6 +8,7 @@ headers = {
 
 data = requests.get(url,headers=headers).json()
 mitre_mapped = {}
+failure = 0
 
 # with open("mitre.json",'r') as f:
 #     data = json.load(f)
@@ -111,3 +112,6 @@ for file in alert_data:
                  failure = 1
         except KeyError:
             pass
+
+if failure!=0:
+    sys.exit(1)

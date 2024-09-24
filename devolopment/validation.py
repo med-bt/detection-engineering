@@ -1,5 +1,8 @@
 import toml
 import os
+import sys
+
+failure = 0
 
 def validate(file_path):
     try:
@@ -37,6 +40,7 @@ def validate(file_path):
 
             if missing_fields:
                 print(f"The following fields do not exist in {file_path}: {missing_fields}")
+                failure=1
             else:
                 print(f"All required fields are present in {file_path}")
 
@@ -46,10 +50,13 @@ def validate(file_path):
         print(f"Error decoding TOML file: {file_path}")
 
 # Path to the directory containing TOML files
-directory = "C:\\Users\\Think\\Desktop\\detection\\custom_alerts"
+directory = "detections/"
 
 for root, dirs, files in os.walk(directory):
     for file in files:
         if file.endswith(".toml"):
             file_path = os.path.join(root, file)
             validate(file_path)
+
+if failure!=0:
+    sys.exit(1)

@@ -1,13 +1,26 @@
-name: TOML and MITRE Validaion
+name: TOML and MITRE Validation
 
 on:
+  workflow_dispatch:  # Allows you to manually trigger the workflow
 
-  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: 
-          python devolopment/validation.py
-          python devolopment/mitre.py
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9.13"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install toml
+
+      - name: Run validation and MITRE scripts
+        run: |
+          python development/validation.py
+          python development/mitre.py

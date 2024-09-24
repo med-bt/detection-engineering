@@ -22,5 +22,5 @@ jobs:
 
       - name: Run validation and MITRE scripts
         run: |
-          python development/validation.py
-          python development/mitre.py
+          python devolopment/validation.py
+          python devolopment/mitre.py
